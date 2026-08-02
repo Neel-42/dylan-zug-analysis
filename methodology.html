@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dylan Dietrich — Hard Court Methodology</title>
+<style>
+:root {--bg:#0f1115;--surface:#171a21;--text:#e8eaed;--muted:#9aa3b2;--accent:#4d8df0;--border:#2a3140;--success:#3ecf8e}
+body{margin:0;font-family:ui-sans-serif,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+.page{max-width:960px;margin:0 auto;padding:32px 20px 48px}
+h1{margin:0 0 8px;font-size:1.5rem;font-weight:650}
+.lead{color:var(--muted);margin:0 0 24px}
+a{color:var(--accent)}
+h2{margin:28px 0 10px;font-size:1.1rem}
+p,li{color:var(--muted);font-size:.92rem}
+ul{padding-left:20px}
+table{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:12px}
+th,td{border:1px solid var(--border);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--surface);color:var(--text)}
+td{color:var(--muted)}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.72rem;background:rgba(62,207,142,.12);color:var(--success)}
+.tag.b{background:rgba(77,141,240,.12);color:var(--accent)}
+.nav{margin-bottom:20px;font-size:.88rem}
+</style>
+</head>
+<body>
+<div class="page">
+  <p class="nav"><a href="index.html">← Back to hard-court analysis</a></p>
+  <h1>Dataset &amp; Methodology</h1>
+  <p class="lead">What matches are included, what was excluded, and how the deuce/ad and pie-chart numbers were derived.</p>
+
+  <h2>Why hard court only</h2>
+  <ul>
+    <li>Dylan plays on <strong>hard courts</strong> for UVA dual matches, ITA events, and NCAA championships (Boar's Head, Tulsa, Athens).</li>
+    <li>The earlier Zug Open page used <strong>clay</strong> Challenger data — useful for pro development but not representative of his college surface.</li>
+    <li>Clay matches (Zug, Gstaad, ITF clay, etc.) are <strong>excluded</strong> from this dataset.</li>
+  </ul>
+
+  <h2>Match tiers</h2>
+  <ul>
+    <li><span class="tag">Tier A</span> — ATP Challenger hard matches with <strong>official serve/return stats</strong> from Tennis Abstract (aces, 1st serve %, points won, dominance ratio).</li>
+    <li><span class="tag b">Tier B</span> — NCAA / ITA / dual matches with <strong>final score only</strong>. No public point-by-point or serve stats. Pie charts use a <strong>games-won percentage</strong> as a rough proxy for points won (clearly labeled on the coach page).</li>
+  </ul>
+
+  <h2>Deuce vs ad conclusions</h2>
+  <ul>
+    <li>Only <strong>one</strong> hard-court match has full deuce/ad charting: 2024 Charlottesville vs Zachary Svajda (<a href="https://www.tennisabstract.com/charting/20241029-M-Charlottesville_CH-R32-Zachary_Svajda-Dylan_Dietrich.html" target="_blank" rel="noopener">Tennis Abstract charting</a>).</li>
+    <li>Serve: Ad side 81.8% pts won vs Deuce 69.2%.</li>
+    <li>Return: Ad side 44.8% vs Deuce 41.9%.</li>
+    <li>Wide serve tendency on hard: 72.7% deuce-wide vs 50.0% ad-wide (charted match only).</li>
+    <li><strong>Do not</strong> apply Zug clay deuce/ad patterns to hard court — on clay his deuce-wide ace pattern was stronger; hard-court charting shows ad-side serve effectiveness.</li>
+  </ul>
+
+  <h2>Points-won percentages (Tier A)</h2>
+  <ul>
+    <li>Estimated from Tennis Abstract <strong>dominance ratio</strong> where available: DR ÷ (1 + DR) ≈ share of total points won.</li>
+    <li>Cross-checked against published totals on TennisLive / 365scores when available.</li>
+  </ul>
+
+  <h2>Points-won percentages (Tier B)</h2>
+  <ul>
+    <li>Estimated as games won ÷ total games played from the final score (e.g. 6-4, 6-4 → 12/20 = 60%).</li>
+    <li>This approximates point share but is <strong>not</strong> as accurate as official stats — treat as directional only.</li>
+  </ul>
+
+  <h2>Video clips</h2>
+  <ul>
+    <li>NCAA final vs Gorzny: embedded YouTube clip where available.</li>
+    <li>Challenger matches: no free embeddable point clips found; cards link to Tennis Abstract or official recap pages.</li>
+  </ul>
+
+  <h2>All 14 matches in dataset</h2>
+  <table>
+    <thead><tr><th>Date</th><th>Event</th><th>Round</th><th>Opponent</th><th>Score</th><th>W/L</th><th>Tier</th><th>Pts won est.</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>2025-10-28</td><td>Charlottesville CH</td><td>R32</td><td>Alfredo Perez</td><td>6-3, 6-4</td><td>W</td><td>A — official stats</td><td>60% Dylan / 40% opp</td><td><a href="https://www.tennisabstract.com/cgi-bin/tourney.cgi?t=2025-6055%2FCharlottesville-CH" target="_blank" rel="noopener">Source</a></td></tr><tr><td>2025-10-29</td><td>Charlottesville CH</td><td>R16</td><td>Jay Clarke</td><td>7-6(6), 6-2</td><td>W</td><td>A — official stats</td><td>62% Dylan / 38% opp</td><td><a href="https://www.tennisabstract.com/cgi-bin/tourney.cgi?t=2025-6055%2FCharlottesville-CH" target="_blank" rel="noopener">Source</a></td></tr><tr><td>2025-10-31</td><td>Charlottesville CH</td><td>QF</td><td>Rafael Jodar</td><td>5-7, 3-6</td><td>L</td><td>A — official stats</td><td>54% Dylan / 46% opp</td><td><a href="https://www.tennisabstract.com/cgi-bin/tourney.cgi?t=2025-6055%2FCharlottesville-CH" target="_blank" rel="noopener">Source</a></td></tr><tr><td>2026-02-22</td><td>Lugano CH</td><td>Q1</td><td>Luca Potenza</td><td>7-6(5), 6-4</td><td>W</td><td>A — official stats</td><td>56% Dylan / 44% opp</td><td><a href="https://www.tennisabstract.com/cgi-bin/tourney.cgi?t=2026Lugano_CH" target="_blank" rel="noopener">Source</a></td></tr><tr><td>2026-02-23</td><td>Lugano CH</td><td>Q2</td><td>Alex Rybakov</td><td>7-5, 6-4</td><td>W</td><td>A — official stats</td><td>63% Dylan / 37% opp</td><td><a href="https://www.tennisabstract.com/cgi-bin/tourney.cgi?t=2026Lugano_CH" target="_blank" rel="noopener">Source</a></td></tr><tr><td>2026-02-25</td><td>Lugano CH</td><td>R32</td><td>Daniil Glinka</td><td>3-6, 4-6</td><td>L</td><td>A — official stats</td><td>41% Dylan / 59% opp</td><td><a href="https://www.tennisabstract.com/cgi-bin/tourney.cgi?t=2026Lugano_CH" target="_blank" rel="noopener">Source</a></td></tr><tr><td>2024-10-29</td><td>Charlottesville CH</td><td>R32</td><td>Zachary Svajda</td><td>6-3, 6-3</td><td>W</td><td>A — official stats</td><td>58% Dylan / 42% opp</td><td><a href="https://www.tennisabstract.com/charting/20241029-M-Charlottesville_CH-R32-Zachary_Svajda-Dylan_Dietrich.html" target="_blank" rel="noopener">Source</a></td></tr><tr><td>2026-05-17</td><td>NCAA Team Championship</td><td>Final</td><td>Sebastian Gorzny (Texas)</td><td>6-7(2), 6-4, 6-4</td><td>W</td><td>B — score only</td><td>55% Dylan / 45% opp</td><td><a href="https://virginiasports.com/news/2026/05/17/virginia-wins-2026-ncaa-mens-tennis-championship" target="_blank" rel="noopener">Source</a></td></tr><tr><td>2026-05-16</td><td>NCAA Team Championship</td><td>SF</td><td>DK Suresh (Wake Forest)</td><td>2-6, 6-0, 6-3</td><td>W</td><td>B — score only</td><td>52% Dylan / 48% opp</td><td><a href="https://godeacs.com/news/2026/5/16/mens-tennis-wake-forest-falls-to-virginia-in-national-semifinals" target="_blank" rel="noopener">Source</a></td></tr><tr><td>2026-02-16</td><td>ITA National Team Indoors</td><td>SF</td><td>Aidan Kim (Ohio State)</td><td>4-6, 6-7(5), 6-4</td><td>L</td><td>B — score only</td><td>49% Dylan / 51% opp</td><td><a href="https://ohiostatebuckeyes.com/news/2026/2/16/mens-tennis-ohio-state-knocks-off-no-1-virginia-moves-to-finals-at-national-indoors" target="_blank" rel="noopener">Source</a></td></tr><tr><td>2026-01-15</td><td>Dual vs #3 TCU</td><td>Dual</td><td>Duncan Chan</td><td>6-4, 7-5</td><td>W</td><td>B — score only</td><td>54% Dylan / 46% opp</td><td><a href="https://virginiasports.com/news/2026/01/16/no-5-virginia-upsets-no-3-tcu" target="_blank" rel="noopener">Source</a></td></tr><tr><td>2026-01-18</td><td>Dual vs #2 Texas</td><td>Dual</td><td>Sebastian Gorzny</td><td>2-6, 6-3, 6-3</td><td>W</td><td>B — score only</td><td>52% Dylan / 48% opp</td><td><a href="https://static.virginiasports.com/pdfs/tennis/2026/men/UVA_MTEN_Season.pdf" target="_blank" rel="noopener">Source</a></td></tr><tr><td>2026-03-01</td><td>Dual vs #38 SMU</td><td>Dual</td><td>Trevor Svajda</td><td>3-6, 6-1, 6-3</td><td>W</td><td>B — score only</td><td>52% Dylan / 48% opp</td><td><a href="https://virginiasports.com/news/2026/03/1/03012026-smu" target="_blank" rel="noopener">Source</a></td></tr><tr><td>2026-05-14</td><td>NCAA Team Championship</td><td>QF</td><td>Benito Sanchez Martinez (Mississippi State)</td><td>6-4, 6-3</td><td>W</td><td>B — score only</td><td>57% Dylan / 43% opp</td><td><a href="https://hailstate.com/sports/mens-tennis/stats/2025-26/virginia/boxscore/27604" target="_blank" rel="noopener">Source</a></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.tennisabstract.com/cgi-bin/player.cgi?p=DylanDietrich" target="_blank" rel="noopener">Tennis Abstract — Dylan Dietrich</a></li>
+    <li><a href="https://static.virginiasports.com/pdfs/tennis/2026/men/UVA_MTEN_Season.pdf" target="_blank" rel="noopener">UVA 2025-26 season PDF</a></li>
+    <li><a href="https://virginiasports.com/sports/mten/roster/season/2025-26/player/dylan-dietrich" target="_blank" rel="noopener">UVA roster bio</a></li>
+  </ul>
+
+  <p style="margin-top:32px;font-size:.8rem;color:var(--muted);text-align:center"><a href="index.html">Back to analysis</a></p>
+</div>
+</body>
+</html>
