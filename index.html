@@ -1,30 +1,20 @@
 <!DOCTYPE html>
-<!-- Public link: https://Neel-42.github.io/dylan-zug-analysis/ -->
+<!-- Public link: https://neel-42.github.io/dylan-zug-analysis/ -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dylan Dietrich — Zug Open 2026 Analysis</title>
+<title>Dylan Dietrich — Deuce vs Ad (Zug Open 2026)</title>
 <style>
-
 :root {
   --bg: #0f1115;
   --surface: #171a21;
-  --surface-2: #1e2330;
   --text: #e8eaed;
   --muted: #9aa3b2;
-  --muted-2: #6b7585;
-  --accent: #4d8df0;
-  --accent-dim: rgba(77, 141, 240, 0.15);
   --success: #3ecf8e;
-  --success-dim: rgba(62, 207, 142, 0.12);
-  --danger: #f07178;
-  --danger-dim: rgba(240, 113, 120, 0.12);
-  --warning: #e6b450;
-  --warning-dim: rgba(230, 180, 80, 0.12);
-  --orange: #e8956a;
+  --accent: #4d8df0;
   --border: #2a3140;
-  --radius: 10px;
+  --radius: 12px;
 }
 *, *::before, *::after { box-sizing: border-box; }
 body {
@@ -32,11 +22,9 @@ body {
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.55;
+  line-height: 1.5;
 }
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
-.page { max-width: 960px; margin: 0 auto; padding: 24px 20px 48px; }
+.page { max-width: 640px; margin: 0 auto; padding: 32px 20px 48px; }
 .eyebrow {
   margin: 0 0 6px;
   font-size: 0.75rem;
@@ -44,609 +32,89 @@ a:hover { text-decoration: underline; }
   letter-spacing: 0.08em;
   color: var(--muted);
 }
-h1 { margin: 0 0 8px; font-size: 1.75rem; font-weight: 650; line-height: 1.2; }
-h2 { margin: 28px 0 12px; font-size: 1.25rem; font-weight: 650; }
-h3 { margin: 18px 0 10px; font-size: 1.05rem; font-weight: 600; }
-.lead { margin: 0 0 20px; color: var(--muted); font-size: 0.95rem; }
-.divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
-.callout {
-  padding: 12px 14px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  font-size: 0.92rem;
-  margin-bottom: 16px;
-}
-.callout.success { background: var(--success-dim); border-color: rgba(62,207,142,0.35); }
-.callout.info { background: var(--accent-dim); border-color: rgba(77,141,240,0.35); }
-.summary-list {
-  margin: 0 0 16px;
-  padding: 12px 14px 12px 32px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  font-size: 0.92rem;
-}
-.summary-list li { margin-bottom: 8px; }
-.summary-list li:last-child { margin-bottom: 0; }
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-@media (max-width: 800px) {
-  .grid-2, .grid-4, .heatmap-grid { grid-template-columns: 1fr !important; }
-}
-.card {
+h1 { margin: 0 0 8px; font-size: 1.6rem; font-weight: 650; }
+.lead { margin: 0 0 28px; color: var(--muted); font-size: 0.95rem; }
+.answer-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
+  padding: 20px 22px;
+  margin-bottom: 16px;
+}
+.answer-card h2 {
+  margin: 0 0 4px;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  font-weight: 600;
+}
+.verdict {
+  margin: 0 0 10px;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--success);
+}
+.verdict.tie { color: var(--accent); }
+.answer-card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+.side-compare { display: flex; gap: 12px; margin-top: 16px; }
+.side-bar { flex: 1; text-align: center; }
+.side-bar .label { font-size: 0.78rem; color: var(--muted); margin-bottom: 6px; }
+.side-bar .track {
+  height: 10px;
+  background: #252a36;
+  border-radius: 5px;
   overflow: hidden;
 }
-.card.borderless { border: none; background: transparent; }
-.card-header {
-  padding: 14px 18px;
-  border-bottom: 1px solid var(--border);
-  font-weight: 600;
-  font-size: 0.95rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
+.side-bar .fill {
+  height: 100%;
+  border-radius: 5px;
+  background: #4a5568;
 }
-.card-body { padding: 16px 18px; }
-.stat-box {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 14px;
-}
-.stat-box .stat-value { font-size: 1.35rem; font-weight: 650; line-height: 1.2; }
-.stat-box .stat-label { margin-top: 4px; font-size: 0.82rem; color: var(--muted); }
-.stat-box.success .stat-value { color: var(--success); }
-.stat-box.info .stat-value { color: var(--accent); }
-.stat-box.warning .stat-value { color: var(--warning); }
-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
-th { color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; }
-tr:last-child td { border-bottom: none; }
-tr.row-win td { background: rgba(62,207,142,0.04); }
-tr.row-loss td { background: rgba(240,113,120,0.04); }
-.pill {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  border: 1px solid var(--border);
-  background: var(--surface-2);
-}
-.pill.win { border-color: var(--success); color: var(--success); background: var(--success-dim); }
-.pill.loss { border-color: var(--danger); color: var(--danger); background: var(--danger-dim); }
-.pill.neutral { color: var(--muted); }
-.meta { font-size: 0.82rem; color: var(--muted); }
-.bar-chart { margin-top: 8px; }
-.bar-chart-legend { display: flex; gap: 16px; margin-bottom: 12px; font-size: 0.82rem; }
-.legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
-.bar-group { display: flex; align-items: flex-end; gap: 6px; height: 200px; padding: 0 4px 0; border-bottom: 1px solid var(--border); position: relative; }
-.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 0; }
-.bar-pair { display: flex; gap: 3px; align-items: flex-end; width: 100%; justify-content: center; height: 130px; }
-.bar { width: 18px; min-height: 4px; border-radius: 3px 3px 0 0; transition: height 0.3s ease; flex-shrink: 0; }
-.bar.dylan { background: var(--success); }
-.bar.dylan.loss { background: var(--danger); }
-.bar.opp { background: var(--orange); }
-.bar-col.loss .bar-label { color: var(--danger); font-weight: 600; }
-.bar-label { font-size: 0.72rem; color: var(--muted); text-align: center; margin-top: 6px; line-height: 1.2; }
-.bar-val { font-size: 0.68rem; color: var(--muted-2); }
-.usage-bar { margin-bottom: 14px; }
-.usage-bar-head { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
-.usage-track { display: flex; height: 10px; border-radius: 5px; overflow: hidden; background: var(--surface-2); }
-.usage-seg { height: 100%; }
-.usage-seg.blue { background: var(--accent); }
-.usage-seg.orange { background: var(--orange); }
-.usage-seg.green { background: var(--success); }
-.usage-seg.red { background: var(--danger); }
-.heatmap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.heatmap-grid.serve-row { grid-template-columns: 1fr 1fr; }
-.court-wrap { margin-bottom: 16px; }
-.court-wrap:last-child { margin-bottom: 0; }
-.court-title { font-weight: 600; font-size: 0.92rem; margin: 0 0 2px; }
-.court-sub { font-size: 0.8rem; color: var(--muted); margin: 0 0 8px; }
-.court-svg { width: 100%; max-width: 360px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px; display: block; }
-.court-note { font-size: 0.75rem; color: var(--muted-2); margin-top: 4px; }
-.notes-list { margin: 0; padding-left: 18px; }
-.notes-list li { margin-bottom: 6px; font-size: 0.9rem; }
-.match-meta-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px; }
-.set-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 10px; margin-bottom: 16px; }
-.footer-note { font-size: 0.82rem; color: var(--muted); margin-top: 8px; text-align: center; }
-.match-tabs {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin-bottom: 20px;
-}
-@media (max-width: 700px) { .match-tabs { grid-template-columns: 1fr 1fr; } }
-.match-tab {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px 10px;
-  cursor: pointer;
-  text-align: left;
-  color: var(--text);
-  font: inherit;
-  transition: border-color 0.15s, background 0.15s;
-}
-.match-tab:hover { border-color: var(--accent); }
-.match-tab.active {
-  border-color: var(--accent);
-  background: var(--accent-dim);
-  box-shadow: 0 0 0 1px rgba(77,141,240,0.25);
-}
-.match-tab .tab-round { font-size: 0.78rem; color: var(--muted); display: block; margin-bottom: 2px; }
-.match-tab .tab-opp { font-weight: 600; font-size: 0.88rem; line-height: 1.25; display: block; }
-.match-tab .tab-score { font-size: 0.82rem; margin-top: 4px; display: block; }
-.stat-compare {
-  display: block;
-  font-size: 0.76rem;
-  color: var(--muted-2);
-  margin-top: 3px;
-  line-height: 1.35;
-}
-.stat-compare.better { color: var(--success); }
-.stat-compare.worse { color: var(--danger); }
-.stat-compare.neutral { color: var(--muted); }
-.stat-row td { vertical-align: top; }
-.stat-row .stat-compare { margin-top: 2px; }
-.placement-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; font-size: 0.82rem; color: var(--muted); }
-.placement-legend span { display: inline-flex; align-items: center; gap: 6px; }
-.legend-swatch { width: 14px; height: 14px; border-radius: 3px; border: 1px solid var(--border); }
-.placement-table td.num { font-weight: 600; font-variant-numeric: tabular-nums; }
-.placement-table tr.best td.num { color: var(--success); }
-.placement-table tr.worst td.num { color: var(--danger); }
-.film-card { margin-top: 8px; }
-
+.side-bar.winner .fill { background: var(--success); }
+.side-bar.winner .label { color: var(--text); font-weight: 600; }
+.footer { margin-top: 28px; font-size: 0.8rem; color: var(--muted); text-align: center; }
 </style>
 </head>
 <body>
-
 <div class="page">
   <p class="eyebrow">UVA Men's Tennis · Zug Open 2026</p>
-  <h1>Dylan Dietrich — Zug Open Match Analysis</h1>
-  <p class="lead">Statistical and tactical review of Dylan's four main-draw matches at the Zug Open. Select a match below for details and replay links.</p>
+  <h1>Dylan Dietrich — Deuce vs Ad</h1>
+  <p class="lead">Four main-draw matches (R1 through SF). One question each: where does he serve best, and where does he return best?</p>
 
-  <div class="callout success">Tournament result: Semifinal (3-1) — first career ATP Challenger semifinal at his hometown event on clay.</div>
-
-  <ul class="summary-list">
-    <li><strong>Wins (3–0):</strong> Protected the second serve — 54–68% 2nd-serve pts won with only 8 double faults across three matches.</li>
-    <li><strong>Loss (SF):</strong> Second serve broke down — 38% 2nd-serve pts won and 7 double faults in one match, matching his entire R1 DF total and handing Seyboth Wild too many free points.</li>
-    <li><strong>Loss (SF):</strong> Return game shut down — 29% return pts won vs 43–47% in wins; opponent served 70% first serves in and won 85% of those points (12 aces).</li>
-  </ul>
-
-  <div class="grid-4" id="summary-stats"></div>
-
-  <div class="card" style="margin-top:16px">
-    <div class="card-header">Bracket run</div>
-    <div class="card-body"><table id="bracket-table"></table></div>
-  </div>
-
-  <hr class="divider">
-
-  <h2>Cross-match trends</h2>
-
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-header">1st serve points won by match (%)</div>
-      <div class="card-body">
-        <div class="bar-chart" id="chart-1st-serve"></div>
+  <div class="answer-card">
+    <h2>Serving</h2>
+    <p class="verdict">Deuce side</p>
+    <p>His damage serve is the wide ball to the deuce court — that's where the aces and free points come from. Ad-side serves are still fine, but deuce is clearly the stronger side across the week.</p>
+    <div class="side-compare">
+      <div class="side-bar winner">
+        <div class="label">Deuce</div>
+        <div class="track"><div class="fill" style="width:100%"></div></div>
       </div>
-    </div>
-    <div class="card">
-      <div class="card-header">2nd serve points won by match (%)</div>
-      <div class="card-body">
-        <div class="bar-chart" id="chart-2nd-serve"></div>
+      <div class="side-bar">
+        <div class="label">Ad</div>
+        <div class="track"><div class="fill" style="width:90%"></div></div>
       </div>
     </div>
   </div>
 
-  <hr class="divider">
+  <div class="answer-card">
+    <h2>Returning</h2>
+    <p class="verdict tie">Ad side (slight edge)</p>
+    <p>Both sides are close — neither is a clear strength or weakness. If anything, he returns a little better on the ad side, but it's marginal. The bigger issue in the loss was heavy kick serves to the body, not one side of the court.</p>
+    <div class="side-compare">
+      <div class="side-bar">
+        <div class="label">Deuce</div>
+        <div class="track"><div class="fill" style="width:97%"></div></div>
+      </div>
+      <div class="side-bar winner">
+        <div class="label">Ad</div>
+        <div class="track"><div class="fill" style="width:100%"></div></div>
+      </div>
+    </div>
+  </div>
 
-  <h2>Match analysis</h2>
-  <p class="meta" style="margin-bottom:12px">Select one match to view stats, heatmaps, and coaching notes.</p>
-
-  <div class="match-tabs" id="match-tabs"></div>
-  <div id="match-panel"></div>
-
-  <p class="footer-note">Dylan Dietrich · UVA Men's Tennis · Zug Open 2026</p>
+  <p class="footer">Dylan Dietrich · Zug Open 2026 · Main draw (4 matches)</p>
 </div>
-
-
-<script type="application/json" id="heatmap-data">{"r1":{"serveLanding":[{"id":"d-wide","label":"Deuce wide","x":0.04,"y":0.06,"w":0.2,"h":0.22,"intensity":95},{"id":"d-body","label":"Deuce body","x":0.26,"y":0.06,"w":0.2,"h":0.22,"intensity":38},{"id":"d-t","label":"Deuce T","x":0.48,"y":0.06,"w":0.2,"h":0.22,"intensity":62},{"id":"a-wide","label":"Ad wide","x":0.72,"y":0.06,"w":0.2,"h":0.22,"intensity":70},{"id":"a-body","label":"Ad body","x":0.54,"y":0.06,"w":0.18,"h":0.22,"intensity":45},{"id":"a-t","label":"Ad T","x":0.32,"y":0.06,"w":0.18,"h":0.22,"intensity":55},{"id":"2d-wide","label":"2nd deuce wide","x":0.04,"y":0.3,"w":0.2,"h":0.18,"intensity":68},{"id":"2d-body","label":"2nd deuce kick","x":0.26,"y":0.3,"w":0.2,"h":0.18,"intensity":58},{"id":"2a-wide","label":"2nd ad wide","x":0.72,"y":0.3,"w":0.2,"h":0.18,"intensity":55},{"id":"2a-body","label":"2nd ad kick","x":0.54,"y":0.3,"w":0.18,"h":0.18,"intensity":52}],"oppServeLanding":[{"id":"d-t","label":"Deuce T","x":0.48,"y":0.06,"w":0.2,"h":0.22,"intensity":78},{"id":"d-body","label":"Deuce body","x":0.26,"y":0.06,"w":0.2,"h":0.22,"intensity":72},{"id":"a-t","label":"Ad T","x":0.32,"y":0.06,"w":0.18,"h":0.22,"intensity":68},{"id":"a-body","label":"Ad body","x":0.54,"y":0.06,"w":0.18,"h":0.22,"intensity":65},{"id":"d-wide","label":"Deuce wide","x":0.04,"y":0.06,"w":0.2,"h":0.22,"intensity":48},{"id":"a-wide","label":"Ad wide","x":0.72,"y":0.06,"w":0.2,"h":0.22,"intensity":42},{"id":"2d-body","label":"2nd kick body","x":0.26,"y":0.3,"w":0.2,"h":0.18,"intensity":75},{"id":"2a-body","label":"2nd kick body","x":0.54,"y":0.3,"w":0.18,"h":0.18,"intensity":72}],"oppServeNotes":["Barrios Vera: 75% 1st serve in \u2014 T/body heavy clay pattern; less ace-dependent than Dylan.","Set 2 rhythm came from higher 1st-serve % and targeting Dylan's return with deep kick."],"returnContact":[{"id":"rc-deuce-deep","label":"Deep deuce","x":0.06,"y":0.62,"w":0.26,"h":0.14,"intensity":72},{"id":"rc-mid","label":"Center baseline","x":0.34,"y":0.62,"w":0.28,"h":0.14,"intensity":80},{"id":"rc-ad-deep","label":"Deep ad","x":0.64,"y":0.62,"w":0.26,"h":0.14,"intensity":68},{"id":"rc-inside","label":"Inside baseline","x":0.22,"y":0.78,"w":0.52,"h":0.12,"intensity":48}],"returnLanding":[{"id":"rl-cross","label":"Crosscourt deep","x":0.08,"y":0.1,"w":0.28,"h":0.2,"intensity":78},{"id":"rl-middle","label":"Middle depth","x":0.36,"y":0.12,"w":0.24,"h":0.18,"intensity":52},{"id":"rl-dtl","label":"Down the line","x":0.62,"y":0.1,"w":0.26,"h":0.2,"intensity":48},{"id":"rl-short","label":"Short angle","x":0.14,"y":0.32,"w":0.22,"h":0.14,"intensity":42},{"id":"rl-body","label":"Body jam","x":0.42,"y":0.3,"w":0.2,"h":0.14,"intensity":55}],"forehandLanding":[{"id":"fh-io","label":"Inside-out ad","x":0.62,"y":0.08,"w":0.3,"h":0.24,"intensity":88},{"id":"fh-cross","label":"Crosscourt","x":0.06,"y":0.1,"w":0.3,"h":0.22,"intensity":78},{"id":"fh-middle","label":"Middle","x":0.36,"y":0.14,"w":0.24,"h":0.18,"intensity":45},{"id":"fh-dtl","label":"DTL","x":0.08,"y":0.34,"w":0.24,"h":0.16,"intensity":58},{"id":"fh-drop","label":"Short angle","x":0.68,"y":0.34,"w":0.22,"h":0.14,"intensity":40}],"backhandLanding":[{"id":"bh-cross","label":"Crosscourt","x":0.58,"y":0.1,"w":0.3,"h":0.22,"intensity":75},{"id":"bh-middle","label":"Middle","x":0.34,"y":0.14,"w":0.22,"h":0.18,"intensity":62},{"id":"bh-dtl","label":"DTL","x":0.08,"y":0.12,"w":0.24,"h":0.2,"intensity":40},{"id":"bh-slice","label":"Slice","x":0.52,"y":0.34,"w":0.28,"h":0.14,"intensity":42},{"id":"bh-chip","label":"Chip","x":0.18,"y":0.36,"w":0.24,"h":0.12,"intensity":35}],"notes":["17 aces \u2014 highest wide-serve frequency of the week; flat/wide first serves dominate.","Set 2 dip coincided with more middle/body second serves getting attacked."]},"r2":{"serveLanding":[{"id":"d-wide","label":"Deuce wide","x":0.04,"y":0.06,"w":0.2,"h":0.22,"intensity":82},{"id":"d-body","label":"Deuce body","x":0.26,"y":0.06,"w":0.2,"h":0.22,"intensity":48},{"id":"d-t","label":"Deuce T","x":0.48,"y":0.06,"w":0.2,"h":0.22,"intensity":52},{"id":"a-wide","label":"Ad wide","x":0.72,"y":0.06,"w":0.2,"h":0.22,"intensity":58},{"id":"a-body","label":"Ad body","x":0.54,"y":0.06,"w":0.18,"h":0.22,"intensity":52},{"id":"a-t","label":"Ad T","x":0.32,"y":0.06,"w":0.18,"h":0.22,"intensity":55},{"id":"2d-body","label":"2nd deuce kick","x":0.26,"y":0.3,"w":0.2,"h":0.18,"intensity":78},{"id":"2a-body","label":"2nd ad kick","x":0.54,"y":0.3,"w":0.18,"h":0.18,"intensity":72}],"oppServeLanding":[{"id":"d-wide","label":"Deuce wide","x":0.04,"y":0.06,"w":0.2,"h":0.22,"intensity":55},{"id":"d-t","label":"Deuce T","x":0.48,"y":0.06,"w":0.2,"h":0.22,"intensity":58},{"id":"a-wide","label":"Ad wide","x":0.72,"y":0.06,"w":0.2,"h":0.22,"intensity":52},{"id":"d-body","label":"Deuce body","x":0.26,"y":0.06,"w":0.2,"h":0.22,"intensity":50},{"id":"2d-body","label":"2nd kick","x":0.26,"y":0.3,"w":0.2,"h":0.18,"intensity":62},{"id":"2a-wide","label":"2nd ad wide","x":0.72,"y":0.3,"w":0.2,"h":0.18,"intensity":55}],"oppServeNotes":["Alcal\u00e1 Gurri: moderate 1st-serve placement; weaker second serve (35% pts won) was attackable.","Less wide-ace threat \u2014 Dylan could step in on returns more aggressively."],"returnContact":[{"id":"rc-mid","label":"Center baseline","x":0.34,"y":0.62,"w":0.28,"h":0.14,"intensity":88},{"id":"rc-inside","label":"Inside baseline","x":0.22,"y":0.78,"w":0.52,"h":0.12,"intensity":62}],"returnLanding":[{"id":"rl-cross","label":"Crosscourt deep","x":0.08,"y":0.1,"w":0.28,"h":0.2,"intensity":85},{"id":"rl-middle","label":"Middle","x":0.36,"y":0.12,"w":0.24,"h":0.18,"intensity":55},{"id":"rl-dtl","label":"DTL","x":0.62,"y":0.1,"w":0.26,"h":0.2,"intensity":42}],"forehandLanding":[{"id":"fh-io","label":"Inside-out","x":0.62,"y":0.08,"w":0.3,"h":0.24,"intensity":85},{"id":"fh-cross","label":"Crosscourt","x":0.06,"y":0.1,"w":0.3,"h":0.22,"intensity":72},{"id":"fh-middle","label":"Middle","x":0.36,"y":0.14,"w":0.24,"h":0.18,"intensity":50}],"backhandLanding":[{"id":"bh-cross","label":"Crosscourt","x":0.58,"y":0.1,"w":0.3,"h":0.22,"intensity":78},{"id":"bh-middle","label":"Middle","x":0.34,"y":0.14,"w":0.22,"h":0.18,"intensity":65}],"notes":["Zero double faults \u2014 more kick/body second serves; balanced first-serve placement."]},"qf":{"serveLanding":[{"id":"d-wide","label":"Deuce wide","x":0.04,"y":0.06,"w":0.2,"h":0.22,"intensity":86},{"id":"d-t","label":"Deuce T","x":0.48,"y":0.06,"w":0.2,"h":0.22,"intensity":58},{"id":"a-wide","label":"Ad wide","x":0.72,"y":0.06,"w":0.2,"h":0.22,"intensity":65},{"id":"2d-body","label":"2nd kick","x":0.26,"y":0.3,"w":0.2,"h":0.18,"intensity":82},{"id":"2a-body","label":"2nd kick","x":0.54,"y":0.3,"w":0.18,"h":0.18,"intensity":80}],"oppServeLanding":[{"id":"d-t","label":"Deuce T","x":0.48,"y":0.06,"w":0.2,"h":0.22,"intensity":68},{"id":"d-wide","label":"Deuce wide","x":0.04,"y":0.06,"w":0.2,"h":0.22,"intensity":62},{"id":"a-wide","label":"Ad wide","x":0.72,"y":0.06,"w":0.2,"h":0.22,"intensity":58},{"id":"a-t","label":"Ad T","x":0.32,"y":0.06,"w":0.18,"h":0.22,"intensity":55},{"id":"2d-body","label":"2nd kick","x":0.26,"y":0.3,"w":0.2,"h":0.18,"intensity":70},{"id":"2a-body","label":"2nd kick","x":0.54,"y":0.3,"w":0.18,"h":0.18,"intensity":68}],"oppServeNotes":["Mayot: balanced lefty-style placement; 65% 1st serve in but Dylan won 57% of second-return points.","Mayot had zero break points converted \u2014 serve placement did not create enough free points."],"returnContact":[{"id":"rc-mid","label":"Center","x":0.34,"y":0.62,"w":0.28,"h":0.14,"intensity":90},{"id":"rc-inside","label":"Inside","x":0.22,"y":0.78,"w":0.52,"h":0.12,"intensity":68}],"returnLanding":[{"id":"rl-cross","label":"Crosscourt","x":0.08,"y":0.1,"w":0.28,"h":0.2,"intensity":88},{"id":"rl-body","label":"Body jam","x":0.42,"y":0.3,"w":0.2,"h":0.14,"intensity":62}],"forehandLanding":[{"id":"fh-io","label":"Inside-out","x":0.62,"y":0.08,"w":0.3,"h":0.24,"intensity":94},{"id":"fh-cross","label":"Crosscourt","x":0.06,"y":0.1,"w":0.3,"h":0.22,"intensity":70}],"backhandLanding":[{"id":"bh-cross","label":"Crosscourt","x":0.58,"y":0.1,"w":0.3,"h":0.22,"intensity":72},{"id":"bh-middle","label":"Middle","x":0.34,"y":0.14,"w":0.22,"h":0.18,"intensity":70}],"notes":["Peak efficiency \u2014 heavy IO forehand patterns; second-serve kick to body set up plus-one."]},"sf":{"serveLanding":[{"id":"d-wide","label":"Deuce wide","x":0.04,"y":0.06,"w":0.2,"h":0.22,"intensity":72},{"id":"d-body","label":"Deuce body","x":0.26,"y":0.06,"w":0.2,"h":0.22,"intensity":55},{"id":"d-t","label":"Deuce T","x":0.48,"y":0.06,"w":0.2,"h":0.22,"intensity":48},{"id":"a-body","label":"Ad body","x":0.54,"y":0.06,"w":0.18,"h":0.22,"intensity":58},{"id":"2d-body","label":"2nd body (DF zone)","x":0.26,"y":0.3,"w":0.2,"h":0.18,"intensity":85},{"id":"2a-body","label":"2nd body (DF zone)","x":0.54,"y":0.3,"w":0.18,"h":0.18,"intensity":82}],"oppServeLanding":[{"id":"d-body","label":"Deuce body/kick","x":0.26,"y":0.06,"w":0.2,"h":0.22,"intensity":85},{"id":"d-t","label":"Deuce T","x":0.48,"y":0.06,"w":0.2,"h":0.22,"intensity":82},{"id":"a-body","label":"Ad body/kick","x":0.54,"y":0.06,"w":0.18,"h":0.22,"intensity":78},{"id":"a-t","label":"Ad T","x":0.32,"y":0.06,"w":0.18,"h":0.22,"intensity":75},{"id":"d-wide","label":"Deuce wide (ace)","x":0.04,"y":0.06,"w":0.2,"h":0.22,"intensity":58},{"id":"a-wide","label":"Ad wide","x":0.72,"y":0.06,"w":0.2,"h":0.22,"intensity":52},{"id":"2d-body","label":"2nd heavy kick","x":0.26,"y":0.3,"w":0.2,"h":0.18,"intensity":88},{"id":"2a-body","label":"2nd heavy kick","x":0.54,"y":0.3,"w":0.18,"h":0.18,"intensity":85}],"oppServeNotes":["Seyboth Wild: heavy kick to body/T \u2014 12 aces, 85% 1st-serve pts won; primary reason Dylan's return collapsed to 29%.","Opponent's kick pulled Dylan off the baseline; compare return contact heatmap vs earlier rounds."],"returnContact":[{"id":"rc-deuce-deep","label":"Deep deuce","x":0.06,"y":0.62,"w":0.26,"h":0.14,"intensity":65},{"id":"rc-mid","label":"Center","x":0.34,"y":0.62,"w":0.28,"h":0.14,"intensity":72},{"id":"rc-ad-deep","label":"Deep ad","x":0.64,"y":0.62,"w":0.26,"h":0.14,"intensity":58}],"returnLanding":[{"id":"rl-middle","label":"Middle (neutralized)","x":0.36,"y":0.12,"w":0.24,"h":0.18,"intensity":68},{"id":"rl-cross","label":"Crosscourt","x":0.08,"y":0.1,"w":0.28,"h":0.2,"intensity":55},{"id":"rl-short","label":"Short (forced)","x":0.14,"y":0.32,"w":0.22,"h":0.14,"intensity":52}],"forehandLanding":[{"id":"fh-middle","label":"Middle (errors)","x":0.36,"y":0.14,"w":0.24,"h":0.18,"intensity":62},{"id":"fh-io","label":"Inside-out","x":0.62,"y":0.08,"w":0.3,"h":0.24,"intensity":68},{"id":"fh-cross","label":"Crosscourt","x":0.06,"y":0.1,"w":0.3,"h":0.22,"intensity":58}],"backhandLanding":[{"id":"bh-middle","label":"Defensive middle","x":0.34,"y":0.14,"w":0.22,"h":0.18,"intensity":75},{"id":"bh-cross","label":"Crosscourt","x":0.58,"y":0.1,"w":0.3,"h":0.22,"intensity":65},{"id":"bh-chip","label":"Defensive chip","x":0.18,"y":0.36,"w":0.24,"h":0.12,"intensity":55}],"notes":["7 double faults \u2014 clustered on body/T second serves under pressure.","Return depth shortened vs Seyboth Wild's kick; more neutral middle balls."]}}</script>
-<script type="application/json" id="placement-data">{"r1":{"serveWinRate":[{"id":"d-wide","label":"Deuce wide","x":0.04,"y":0.06,"w":0.2,"h":0.22,"usage":44,"ptsWon":94,"serveType":"1st"},{"id":"d-t","label":"Deuce T","x":0.48,"y":0.06,"w":0.2,"h":0.22,"usage":14,"ptsWon":71,"serveType":"1st"},{"id":"a-wide","label":"Ad wide","x":0.72,"y":0.06,"w":0.2,"h":0.22,"usage":22,"ptsWon":82,"serveType":"1st"},{"id":"a-t","label":"Ad T","x":0.32,"y":0.06,"w":0.18,"h":0.22,"usage":12,"ptsWon":68,"serveType":"1st"},{"id":"2d-wide","label":"2nd deuce wide","x":0.04,"y":0.3,"w":0.2,"h":0.18,"usage":16,"ptsWon":58,"serveType":"2nd"},{"id":"2d-body","label":"2nd deuce kick","x":0.26,"y":0.3,"w":0.2,"h":0.18,"usage":28,"ptsWon":48,"serveType":"2nd"},{"id":"2a-body","label":"2nd ad kick","x":0.54,"y":0.3,"w":0.18,"h":0.18,"usage":24,"ptsWon":52,"serveType":"2nd"}],"returnVsServe":[{"id":"d-t","label":"vs Deuce T","x":0.48,"y":0.06,"w":0.2,"h":0.22,"oppUsage":32,"returnWin":32,"typicalReturn":"defensive chip"},{"id":"d-body","label":"vs Deuce body","x":0.26,"y":0.06,"w":0.2,"h":0.22,"oppUsage":28,"returnWin":38,"typicalReturn":"block middle"},{"id":"d-wide","label":"vs Deuce wide","x":0.04,"y":0.06,"w":0.2,"h":0.22,"oppUsage":18,"returnWin":48,"typicalReturn":"crosscourt deep"},{"id":"a-t","label":"vs Ad T","x":0.32,"y":0.06,"w":0.18,"h":0.22,"oppUsage":26,"returnWin":42,"typicalReturn":"deep middle"},{"id":"a-body","label":"vs Ad body","x":0.54,"y":0.06,"w":0.18,"h":0.22,"oppUsage":22,"returnWin":40,"typicalReturn":"block + neutralize"},{"id":"2d-body","label":"vs 2nd kick body","x":0.26,"y":0.3,"w":0.2,"h":0.18,"oppUsage":30,"returnWin":52,"typicalReturn":"inside-out attack"},{"id":"2a-body","label":"vs 2nd kick body","x":0.54,"y":0.3,"w":0.18,"h":0.18,"oppUsage":28,"returnWin":50,"typicalReturn":"step-in FH"}],"serveInsights":["Best serve: deuce wide \u2014 94% pts won on 44% of 1st serves; primary ace target (17 aces).","Weakest 1st serve: deuce T at 71% \u2014 still usable but not the damage dealer.","Set 2 vulnerability: 2nd-serve kick to deuce body dropped to 48% pts won when Barrios read the flat wide."],"returnInsights":["Worst return spot: vs deuce T (32% return pts won) \u2014 Barrios's clay rhythm serve.","Best return spot: vs 2nd kick body (50\u201352%) \u2014 attackable second serves.","Set 2 dip tied to inability to neutralize T/body first serves."]},"r2":{"serveWinRate":[{"id":"d-wide","label":"Deuce wide","x":0.04,"y":0.06,"w":0.2,"h":0.22,"usage":38,"ptsWon":86,"serveType":"1st"},{"id":"d-t","label":"Deuce T","x":0.48,"y":0.06,"w":0.2,"h":0.22,"usage":20,"ptsWon":74,"serveType":"1st"},{"id":"a-wide","label":"Ad wide","x":0.72,"y":0.06,"w":0.2,"h":0.22,"usage":18,"ptsWon":78,"serveType":"1st"},{"id":"a-t","label":"Ad T","x":0.32,"y":0.06,"w":0.18,"h":0.22,"usage":16,"ptsWon":72,"serveType":"1st"},{"id":"2d-body","label":"2nd deuce kick","x":0.26,"y":0.3,"w":0.2,"h":0.18,"usage":32,"ptsWon":62,"serveType":"2nd"},{"id":"2a-body","label":"2nd ad kick","x":0.54,"y":0.3,"w":0.18,"h":0.18,"usage":28,"ptsWon":58,"serveType":"2nd"}],"returnVsServe":[{"id":"d-wide","label":"vs Deuce wide","x":0.04,"y":0.06,"w":0.2,"h":0.22,"oppUsage":24,"returnWin":52,"typicalReturn":"aggressive cross"},{"id":"d-t","label":"vs Deuce T","x":0.48,"y":0.06,"w":0.2,"h":0.22,"oppUsage":22,"returnWin":48,"typicalReturn":"deep middle"},{"id":"a-wide","label":"vs Ad wide","x":0.72,"y":0.06,"w":0.2,"h":0.22,"oppUsage":20,"returnWin":50,"typicalReturn":"crosscourt"},{"id":"2d-body","label":"vs 2nd kick","x":0.26,"y":0.3,"w":0.2,"h":0.18,"oppUsage":26,"returnWin":55,"typicalReturn":"IO forehand"},{"id":"2a-wide","label":"vs 2nd ad wide","x":0.72,"y":0.3,"w":0.2,"h":0.18,"oppUsage":18,"returnWin":53,"typicalReturn":"step-in attack"}],"serveInsights":["Most balanced serve mix of the week \u2014 deuce wide still leads at 86% pts won.","Zero DFs came from leaning on kick 2nd serves (62% pts won on 2nd deuce kick).","Ad-side serves slightly lower efficiency but still above 72%."],"returnInsights":["Strongest return performance: 47% total return pts won \u2014 attacked weak 2nd serves (55% vs kick).","Alcal\u00e1 Gurri's moderate placement gave Dylan readable patterns on both sides."]},"qf":{"serveWinRate":[{"id":"d-wide","label":"Deuce wide","x":0.04,"y":0.06,"w":0.2,"h":0.22,"usage":40,"ptsWon":93,"serveType":"1st"},{"id":"d-t","label":"Deuce T","x":0.48,"y":0.06,"w":0.2,"h":0.22,"usage":22,"ptsWon":78,"serveType":"1st"},{"id":"a-wide","label":"Ad wide","x":0.72,"y":0.06,"w":0.2,"h":0.22,"usage":20,"ptsWon":85,"serveType":"1st"},{"id":"a-t","label":"Ad T","x":0.32,"y":0.06,"w":0.18,"h":0.22,"usage":12,"ptsWon":75,"serveType":"1st"},{"id":"2d-body","label":"2nd deuce kick","x":0.26,"y":0.3,"w":0.2,"h":0.18,"usage":30,"ptsWon":72,"serveType":"2nd"},{"id":"2a-body","label":"2nd ad kick","x":0.54,"y":0.3,"w":0.18,"h":0.18,"usage":26,"ptsWon":68,"serveType":"2nd"}],"returnVsServe":[{"id":"d-t","label":"vs Deuce T","x":0.48,"y":0.06,"w":0.2,"h":0.22,"oppUsage":28,"returnWin":40,"typicalReturn":"deep cross"},{"id":"d-wide","label":"vs Deuce wide","x":0.04,"y":0.06,"w":0.2,"h":0.22,"oppUsage":24,"returnWin":45,"typicalReturn":"aggressive FH"},{"id":"a-wide","label":"vs Ad wide","x":0.72,"y":0.06,"w":0.2,"h":0.22,"oppUsage":22,"returnWin":42,"typicalReturn":"crosscourt"},{"id":"2d-body","label":"vs 2nd kick","x":0.26,"y":0.3,"w":0.2,"h":0.18,"oppUsage":32,"returnWin":52,"typicalReturn":"attack 2nd"}],"serveInsights":["Peak serve efficiency: deuce wide at 93% pts won \u2014 best ratio of usage \u00d7 effectiveness all week.","Only 1 DF \u2014 optimal mix of deuce wide damage + reliable 2nd kick (72% on deuce body).","Ad wide at 85% is the secondary weapon when deuce side is blocked."],"returnInsights":["Won 57% of points on Mayot's 2nd serve \u2014 return vs kick body (52%) was the break weapon.","First-serve returns held at 40\u201345% \u2014 enough to stay ahead in neutral exchanges."]},"sf":{"serveWinRate":[{"id":"d-wide","label":"Deuce wide","x":0.04,"y":0.06,"w":0.2,"h":0.22,"usage":32,"ptsWon":76,"serveType":"1st"},{"id":"d-t","label":"Deuce T","x":0.48,"y":0.06,"w":0.2,"h":0.22,"usage":18,"ptsWon":65,"serveType":"1st"},{"id":"a-wide","label":"Ad wide","x":0.72,"y":0.06,"w":0.2,"h":0.22,"usage":20,"ptsWon":72,"serveType":"1st"},{"id":"a-t","label":"Ad T","x":0.32,"y":0.06,"w":0.18,"h":0.22,"usage":15,"ptsWon":58,"serveType":"1st"},{"id":"2d-body","label":"2nd deuce body","x":0.26,"y":0.3,"w":0.2,"h":0.18,"usage":35,"ptsWon":42,"serveType":"2nd"},{"id":"2a-body","label":"2nd ad body","x":0.54,"y":0.3,"w":0.18,"h":0.18,"usage":30,"ptsWon":38,"serveType":"2nd"}],"returnVsServe":[{"id":"d-body","label":"vs Deuce body/kick","x":0.26,"y":0.06,"w":0.2,"h":0.22,"oppUsage":34,"returnWin":22,"typicalReturn":"forced short/neutral"},{"id":"d-t","label":"vs Deuce T","x":0.48,"y":0.06,"w":0.2,"h":0.22,"oppUsage":30,"returnWin":26,"typicalReturn":"blocked middle"},{"id":"a-body","label":"vs Ad body/kick","x":0.54,"y":0.06,"w":0.18,"h":0.22,"oppUsage":28,"returnWin":24,"typicalReturn":"defensive chip"},{"id":"a-t","label":"vs Ad T","x":0.32,"y":0.06,"w":0.18,"h":0.22,"oppUsage":24,"returnWin":28,"typicalReturn":"late contact"},{"id":"d-wide","label":"vs Deuce wide","x":0.04,"y":0.06,"w":0.2,"h":0.22,"oppUsage":16,"returnWin":38,"typicalReturn":"best chance to attack"},{"id":"2d-body","label":"vs 2nd heavy kick","x":0.26,"y":0.3,"w":0.2,"h":0.18,"oppUsage":32,"returnWin":28,"typicalReturn":"pushed off court"}],"serveInsights":["Deuce wide still best 1st serve (76%) but down from 93% in QF \u2014 Seyboth Wild read the pattern.","Critical failure: 2nd-serve body at 38\u201342% pts won \u2014 7 DFs clustered here under pressure.","Ad T weakest 1st serve at 58% \u2014 avoid when tight; wide targets safer."],"returnInsights":["Return collapsed vs kick/body/T serves (22\u201328%) \u2014 Seyboth Wild's primary weapon.","Only vs deuce wide (38%) did Dylan find attackable returns; everything else neutralized.","Film priority: compare return contact on body kicks here vs QF second-serve attacks."]}}</script>
-<script type="application/json" id="matches-data">[{"id":"r1","round":"Round 1","opponent":"Tomás Barrios Vera (CHL)","opponentRank":139,"score":"6-4, 4-6, 6-1","result":"W","date":"Jul 21, 2026","replayUrl":"https://www.tennischannel.com/en-us/video/dietrich-dylan-barrios-vera-tomas/2199356","replaySource":"Tennis Channel","stats":{"firstServePct":54,"oppFirstServePct":75,"firstServeWonPct":88,"oppFirstServeWonPct":56,"secondServeWonPct":54,"oppSecondServeWonPct":52,"breakPointsWon":"4/12 (33%)","oppBreakPointsWon":"2/8 (25%)","totalPointsWonPct":57,"aces":17,"doubleFaults":7,"returnPtsWonPct":45,"oppAces":2,"oppDoubleFaults":1,"oppReturnPtsWonPct":28,"oppTotalPointsWonPct":43},"setScores":[{"set":1,"dietrich":6,"opponent":4},{"set":2,"dietrich":4,"opponent":6},{"set":3,"dietrich":6,"opponent":1}],"coachingNotes":["Opened with a power-first serving identity: 17 aces (match high) against a veteran clay-courter ranked #139.","First-serve points won at 88% — when the ball went in, Barrios had almost no answer on return.","Set 2 dip is the main concern: return game fell to 14% of return games won; Barrios raised first-serve percentage to 78% and found rhythm.","Set 3 response was elite — broke early, held serve under pressure (75% break points saved), and closed 6-1 without letting momentum stall.","Pattern: Dylan can win with lower first-serve percentage (54%) if first-serve quality and ace count stay high on clay."],"keyMoments":["Set 1, 5-4: Broke at 15-40 after a long deuce game — set the tone for aggressive returning.","Set 2, 1-5 hole: Consecutive service breaks; second-serve win rate dropped — needs review on kick placement when opponent reads the flat serve.","Set 3, 3-1 break: Immediate reset after Set 2; won 5 of final 6 games."],"tacticalProfile":"Ace-heavy offensive server who traded consistency for damage. Won the war of attrition in Set 3 by raising return pressure and protecting second serves better after the Set 2 lull."},{"id":"r2","round":"Round 2","opponent":"Max Alcalá Gurri (ESP)","opponentRank":181,"score":"6-3, 6-3","result":"W","date":"Jul 23, 2026","replayUrl":"https://www.tennischannel.com/en-us/video/alcala-gurri-max-dietrich-dylan/2201598","replaySource":"Tennis Channel","stats":{"firstServePct":49,"oppFirstServePct":66,"firstServeWonPct":81,"oppFirstServeWonPct":63,"secondServeWonPct":59,"oppSecondServeWonPct":35,"breakPointsWon":"4/10 (40%)","oppBreakPointsWon":"1/2 (50%)","totalPointsWonPct":58,"aces":10,"doubleFaults":0,"returnPtsWonPct":47,"oppAces":3,"oppDoubleFaults":2,"oppReturnPtsWonPct":30,"oppTotalPointsWonPct":42},"setScores":[{"set":1,"dietrich":6,"opponent":3},{"set":2,"dietrich":6,"opponent":3}],"coachingNotes":["Cleanest serving performance of the week: zero double faults while still hitting 10 aces.","Second-serve points won at 59% — well above tour average; Alcalá Gurri won only 35% on his second serve.","Converted 40% of break points (4/10) — consistent return pressure even when not breaking early.","First-serve percentage dipped to 49% but efficiency stayed high (81% first-serve points won).","Coming off Cordenons title (won Jul 19) — Alcalá Gurri was in form; Dylan neutralized his ground game with serve-plus-one patterns."],"keyMoments":["Set 1: Trailed 0-2, then won 5 of next 6 games — strong mental reset after slow start.","Set 2, 3-3: Won a marathon deuce game to break; immediately consolidated for 5-3 and closed.","Both sets finished 6-3 — identical scorelines suggest repeatable game plan execution."],"tacticalProfile":"Balanced aggression: less reliant on aces than R1 but more efficient. Second serve became a weapon. Return game created break chances every set."},{"id":"qf","round":"Quarterfinal","opponent":"Harold Mayot (FRA)","opponentRank":null,"score":"6-3, 6-3","result":"W","date":"Jul 24, 2026","replayUrl":"https://www.primevideo.com/detail/0MGUJ21NMB5CMRQI8XTL45OKQF","replaySource":"Prime Video / Tennis Channel","stats":{"firstServePct":53,"oppFirstServePct":65,"firstServeWonPct":82,"oppFirstServeWonPct":64,"secondServeWonPct":68,"oppSecondServeWonPct":43,"breakPointsWon":"3/8 (38%)","oppBreakPointsWon":"0/1 (0%)","totalPointsWonPct":58,"aces":11,"doubleFaults":1,"returnPtsWonPct":43,"oppAces":2,"oppDoubleFaults":2,"oppReturnPtsWonPct":25,"oppTotalPointsWonPct":42},"setScores":[{"set":1,"dietrich":6,"opponent":3},{"set":2,"dietrich":6,"opponent":3}],"coachingNotes":["First career ATP Challenger semifinal — highest-stakes match of the pro career to date.","Mayot had zero break points converted (0/1) — serve under pressure held up when it mattered most.","Second-serve dominance: 68% won vs Mayot's 43% — biggest second-serve gap of the tournament.","11 aces with only 1 double fault — optimal risk/reward ratio.","Straight-set win over a player who had been grinding through three-setters all week."],"keyMoments":["Set 1, 2-2: Survived triple break point (40-0 down) then held — momentum swing.","Set 1, 4-3: Break at 40-15 consolidated lead before closing 6-3.","Set 2, 6-3 finish: Closed on return — aggressive return positioning paid off."],"tacticalProfile":"Peak tournament serving efficiency. Controlled center of court, attacked Mayot's second serve (won 57% of second-return points), and did not donate free points."},{"id":"sf","round":"Semifinal","opponent":"Thiago Seyboth Wild (BRA)","opponentRank":276,"score":"4-6, 3-6","result":"L","date":"Jul 25, 2026","replayUrl":"https://www.tennischannel.com/en-us/video/seyboth-wild-thiago-dietrich-dylan/2202652","replaySource":"Tennis Channel","stats":{"firstServePct":51,"oppFirstServePct":70,"firstServeWonPct":78,"oppFirstServeWonPct":85,"secondServeWonPct":38,"oppSecondServeWonPct":44,"breakPointsWon":"1/3 (33%)","oppBreakPointsWon":"3/6 (50%)","totalPointsWonPct":43,"aces":7,"doubleFaults":7,"returnPtsWonPct":29,"oppAces":12,"oppDoubleFaults":1,"oppReturnPtsWonPct":42,"oppTotalPointsWonPct":57},"setScores":[{"set":1,"dietrich":4,"opponent":6},{"set":2,"dietrich":3,"opponent":6}],"coachingNotes":["Primary loss factor: 7 double faults — matched his entire R1 total in one match; donated too many free points on a day Seyboth Wild served at 85% first-serve points won.","Return game collapsed to 29% total return points won — Seyboth Wild's 12 aces and 70% first-serve rate limited Dylan's return rhythm.","Second-serve points won dropped to 38% (season-low in this run) — pressure from a more experienced Challenger regular (#276, former #58).","Set 1 was competitive until 4-4; Seyboth Wild won 8 of final 10 games — opponent raised level, Dylan's unforced errors and DFs spiked.","Still won 78% of first-serve points — the issue was getting enough cheap first serves in and protecting second serves."],"keyMoments":["Set 1, 3-3: Failed to convert break chances at 15-40 and 30-40 — missed opportunity to take control.","Set 1, 4-5: Broken serving for the set; Seyboth Wild closed at love.","Set 2, 0-3: Early break deficit; 7 DFs accumulated by mid-set — mental and technical reset needed earlier."],"tacticalProfile":"Seyboth Wild's experience on clay and superior first-serve percentage (70% vs 51%) controlled baseline patterns. Dylan's power game was neutralized when second serves became attackable."}]</script>
-<script>
-
-(function () {
-  "use strict";
-
-  var HEATMAP_DATA = JSON.parse(document.getElementById("heatmap-data").textContent);
-  var PLACEMENT_DATA = JSON.parse(document.getElementById("placement-data").textContent);
-  var MATCHES = JSON.parse(document.getElementById("matches-data").textContent);
-  var selectedMatchId = "r1";
-
-  var AVGS = (function () {
-    var n = MATCHES.length;
-    function avg(key) {
-      return Math.round(MATCHES.reduce(function (s, m) { return s + m.stats[key]; }, 0) / n * 10) / 10;
-    }
-    return {
-      firstServePct: avg("firstServePct"),
-      firstServeWonPct: avg("firstServeWonPct"),
-      secondServeWonPct: avg("secondServeWonPct"),
-      returnPtsWonPct: avg("returnPtsWonPct"),
-      aces: avg("aces"),
-      doubleFaults: avg("doubleFaults")
-    };
-  })();
-
-  var COLORS = {
-    accent: "#4d8df0",
-    courtBg: "#1e2330",
-    line: "#3a4255",
-    line2: "#2a3140",
-    label: "#6b7585"
-  };
-
-  function pct(n) { return n + "%"; }
-  function roundLabel(r) { return r.replace("Round ", "R"); }
-
-  function heatColor(intensity) {
-    var t = Math.min(100, Math.max(0, intensity)) / 100;
-    if (t < 0.15) return COLORS.courtBg;
-    var alpha = 0.15 + t * 0.75;
-    var hex = Math.round(alpha * 255).toString(16).padStart(2, "0");
-    return COLORS.accent + hex;
-  }
-
-  function winRateColor(val) {
-    var t = Math.min(95, Math.max(30, val));
-    t = (t - 30) / 65;
-    var r, g, b, alpha = 0.35 + t * 0.55;
-    if (t < 0.45) {
-      r = 240; g = Math.round(113 + t / 0.45 * 67); b = 120;
-    } else if (t < 0.65) {
-      var u = (t - 0.45) / 0.2;
-      r = Math.round(240 - u * 178); g = Math.round(180 + u * 27); b = Math.round(120 + u * 22);
-    } else {
-      var v = (t - 0.65) / 0.35;
-      r = 62; g = 207; b = Math.round(142 - v * 54);
-    }
-    return "rgba(" + r + "," + g + "," + b + "," + alpha + ")";
-  }
-
-  function compareNote(value, avg, higherIsBetter, unit) {
-    unit = unit || "";
-    var diff = Math.round((value - avg) * 10) / 10;
-    if (Math.abs(diff) < 0.5) {
-      return { text: "At tournament avg (" + avg + unit + ")", cls: "neutral" };
-    }
-    var better = higherIsBetter ? diff > 0 : diff < 0;
-    var arrow = diff > 0 ? "↑" : "↓";
-    var qual = better ? "above" : "below";
-    return {
-      text: arrow + " " + Math.abs(diff) + unit + " " + qual + " avg (" + avg + unit + ")",
-      cls: better ? "better" : "worse"
-    };
-  }
-
-  function compareHtml(value, avg, higherIsBetter, unit) {
-    var c = compareNote(value, avg, higherIsBetter, unit);
-    return '<span class="stat-compare ' + c.cls + '">' + c.text + '</span>';
-  }
-
-  function statBox(label, value, tone) {
-    return '<div class="stat-box' + (tone ? " " + tone : "") + '"><div class="stat-value">' + value + '</div><div class="stat-label">' + label + '</div></div>';
-  }
-
-  function renderSummaryStats() {
-    var wins = MATCHES.filter(function (m) { return m.result === "W"; }).length;
-    var totalAces = MATCHES.reduce(function (s, m) { return s + m.stats.aces; }, 0);
-    var totalDFs = MATCHES.reduce(function (s, m) { return s + m.stats.doubleFaults; }, 0);
-    var avg1st = Math.round(MATCHES.reduce(function (s, m) { return s + m.stats.firstServeWonPct; }, 0) / MATCHES.length);
-    document.getElementById("summary-stats").innerHTML =
-      statBox("Record", wins + "-1", "success") +
-      statBox("Total aces", String(totalAces), "info") +
-      statBox("Double faults", String(totalDFs), "warning") +
-      statBox("Avg 1st serve pts won", pct(avg1st), "");
-  }
-
-  function renderTable(id, headers, rows, rowClasses) {
-    var html = "<thead><tr>" + headers.map(function (h) { return "<th>" + h + "</th>"; }).join("") + "</tr></thead><tbody>";
-    rows.forEach(function (row, i) {
-      html += '<tr class="' + (rowClasses ? rowClasses[i] || "" : "") + '">';
-      row.forEach(function (cell) { html += "<td>" + cell + "</td>"; });
-      html += "</tr>";
-    });
-    html += "</tbody>";
-    document.getElementById(id).innerHTML = html;
-  }
-
-  function normalizeTo100(zones, key) {
-    key = key || "intensity";
-    if (!zones.length) return [];
-    var total = zones.reduce(function (s, z) { return s + (z[key] || 0); }, 0);
-    if (!total) {
-      var even = Math.floor(100 / zones.length);
-      return zones.map(function (z, i) {
-        var copy = Object.assign({}, z);
-        copy.usagePct = i === 0 ? 100 - even * (zones.length - 1) : even;
-        return copy;
-      });
-    }
-    var raw = zones.map(function (z) { return (z[key] || 0) / total * 100; });
-    var rounded = raw.map(function (v) { return Math.round(v); });
-    var sum = rounded.reduce(function (a, b) { return a + b; }, 0);
-    if (sum !== 100) {
-      var idx = 0;
-      for (var i = 1; i < raw.length; i++) {
-        if (raw[i] > raw[idx]) idx = i;
-      }
-      rounded[idx] += 100 - sum;
-    }
-    return zones.map(function (z, i) {
-      var copy = Object.assign({}, z);
-      copy.usagePct = rounded[i];
-      return copy;
-    });
-  }
-
-  function usageSumLabel(zones) {
-    var sum = zones.reduce(function (s, z) { return s + z.usagePct; }, 0);
-    return "Zone usage shares total 100% (" + sum + "%)";
-  }
-
-  function renderBarChart(containerId, yMin, yMax) {
-    var container = document.getElementById(containerId);
-    var range = yMax - yMin;
-    var plotH = 130;
-    var legend = '<div class="bar-chart-legend"><span><span class="legend-dot" style="background:var(--success)"></span>Dylan (win)</span><span><span class="legend-dot" style="background:var(--danger)"></span>Dylan (loss)</span><span><span class="legend-dot" style="background:var(--orange)"></span>Opponent</span></div>';
-    var groups = '<div class="bar-group">';
-    MATCHES.forEach(function (m) {
-      var dylanVal, oppVal;
-      if (containerId === "chart-1st-serve") {
-        dylanVal = m.stats.firstServeWonPct;
-        oppVal = m.stats.oppFirstServeWonPct;
-      } else {
-        dylanVal = m.stats.secondServeWonPct;
-        oppVal = m.stats.oppSecondServeWonPct;
-      }
-      var isLoss = m.result === "L";
-      var dylanClass = "bar dylan" + (isLoss ? " loss" : "");
-      var colClass = "bar-col" + (isLoss ? " loss" : "");
-      var dH = Math.max(4, Math.round(((dylanVal - yMin) / range) * plotH));
-      var oH = Math.max(4, Math.round(((oppVal - yMin) / range) * plotH));
-      groups += '<div class="' + colClass + '"><div class="bar-pair">' +
-        '<div class="' + dylanClass + '" style="height:' + dH + 'px" title="Dylan ' + dylanVal + '%"></div>' +
-        '<div class="bar opp" style="height:' + oH + 'px" title="Opponent ' + oppVal + '%"></div>' +
-        '</div><div class="bar-val">' + dylanVal + ' / ' + oppVal + '</div>' +
-        '<div class="bar-label">' + roundLabel(m.round) + (isLoss ? " (L)" : "") + '</div></div>';
-    });
-    groups += "</div>";
-    container.innerHTML = legend + groups;
-  }
-
-  function renderCourtHeatmap(title, subtitle, zones, view, height, serveFrom, showLabels) {
-    height = height || 220;
-    serveFrom = serveFrom || "Dylan";
-    var normalized = normalizeTo100(zones, "intensity");
-    var orientBottom = view === "return-contact" ? "Dylan (return side)" : view === "serve" ? serveFrom + " serves from baseline" : "Opponent side (landing)";
-    var orientTop = view === "return-contact" ? "Opponent" : view === "serve" ? "Service boxes" : "Target zones";
-    var svg = '<svg class="court-svg" viewBox="0 0 1 1" preserveAspectRatio="xMidYMid meet" style="max-height:' + height + 'px">';
-    svg += '<rect x="0.02" y="0.04" width="0.96" height="0.92" fill="none" stroke="' + COLORS.line + '" stroke-width="0.004"/>';
-    svg += '<line x1="0.02" y1="0.5" x2="0.98" y2="0.5" stroke="' + COLORS.line + '" stroke-width="0.005"/>';
-    if (view === "serve" || view === "return-landing") {
-      svg += '<line x1="0.5" y1="0.04" x2="0.5" y2="0.5" stroke="' + COLORS.line + '" stroke-width="0.003"/>';
-    }
-    svg += '<line x1="0.02" y1="0.28" x2="0.98" y2="0.28" stroke="' + COLORS.line + '" stroke-width="0.003"/>';
-    if (view === "return-contact") {
-      svg += '<rect x="0.02" y="0.58" width="0.96" height="0.34" fill="none" stroke="' + COLORS.line + '" stroke-width="0.002" stroke-dasharray="0.01 0.01"/>';
-    }
-    normalized.forEach(function (z) {
-      svg += '<rect x="' + z.x + '" y="' + z.y + '" width="' + z.w + '" height="' + z.h + '" fill="' + heatColor(z.usagePct) + '" stroke="' + COLORS.line2 + '" stroke-width="0.002" rx="0.008"/>';
-      if (showLabels !== false) {
-        svg += '<text x="' + (z.x + z.w / 2) + '" y="' + (z.y + z.h / 2) + '" text-anchor="middle" dominant-baseline="middle" fill="#e8eaed" font-size="0.032" font-weight="600" font-family="system-ui,sans-serif">' + z.usagePct + '%</text>';
-      }
-    });
-    svg += '<text x="0.5" y="0.97" text-anchor="middle" fill="' + COLORS.label + '" font-size="0.032">' + orientBottom + '</text>';
-    svg += '<text x="0.5" y="0.02" text-anchor="middle" fill="' + COLORS.label + '" font-size="0.028">' + orientTop + '</text>';
-    svg += "</svg>";
-    return '<div class="court-wrap"><div class="court-title">' + title + '</div><div class="court-sub">' + subtitle + '</div>' + svg +
-      '<div class="court-note">' + usageSumLabel(normalized) + ' · darker = used more</div></div>';
-  }
-
-  function renderPlacementCourt(title, subtitle, zones, usageKey, height) {
-    height = height || 240;
-    var normalized = normalizeTo100(zones, usageKey);
-    var svg = '<svg class="court-svg" viewBox="0 0 1 1" preserveAspectRatio="xMidYMid meet" style="max-height:' + height + 'px">';
-    svg += '<rect x="0.02" y="0.04" width="0.96" height="0.92" fill="none" stroke="' + COLORS.line + '" stroke-width="0.004"/>';
-    svg += '<line x1="0.02" y1="0.5" x2="0.98" y2="0.5" stroke="' + COLORS.line + '" stroke-width="0.005"/>';
-    svg += '<line x1="0.5" y1="0.04" x2="0.5" y2="0.5" stroke="' + COLORS.line + '" stroke-width="0.003"/>';
-    svg += '<line x1="0.02" y1="0.28" x2="0.98" y2="0.28" stroke="' + COLORS.line + '" stroke-width="0.003"/>';
-    normalized.forEach(function (z) {
-      svg += '<rect x="' + z.x + '" y="' + z.y + '" width="' + z.w + '" height="' + z.h + '" fill="' + heatColor(z.usagePct) + '" stroke="' + COLORS.line2 + '" stroke-width="0.002" rx="0.008"/>';
-      svg += '<text x="' + (z.x + z.w / 2) + '" y="' + (z.y + z.h / 2) + '" text-anchor="middle" dominant-baseline="middle" fill="#e8eaed" font-size="0.034" font-weight="600" font-family="system-ui,sans-serif">' + z.usagePct + '%</text>';
-    });
-    svg += '<text x="0.5" y="0.97" text-anchor="middle" fill="' + COLORS.label + '" font-size="0.032">Service boxes</text>';
-    svg += '<text x="0.5" y="0.02" text-anchor="middle" fill="' + COLORS.label + '" font-size="0.028">Share of serves to each zone</text>';
-    svg += "</svg>";
-    return '<div class="court-wrap"><div class="court-title">' + title + '</div><div class="court-sub">' + subtitle + '</div>' +
-      svg + '<div class="court-note">' + usageSumLabel(normalized) + ' · darker = used more</div></div>';
-  }
-
-  function renderPlacementTable(rows, usageKey) {
-    var normalized = normalizeTo100(rows, usageKey);
-    var sorted = normalized.slice().sort(function (a, b) { return b.usagePct - a.usagePct; });
-    var html = '<table class="placement-table"><thead><tr><th>Placement</th><th>Usage share</th><th>Typical pattern</th></tr></thead><tbody>';
-    sorted.forEach(function (z) {
-      html += '<tr><td>' + z.label + (z.serveType ? ' <span class="meta">(' + z.serveType + ')</span>' : '') + '</td>';
-      html += '<td class="num">' + z.usagePct + '%</td>';
-      html += '<td class="meta">' + (z.typicalReturn || (z.serveType === "2nd" ? "kick/body" : "power placement")) + '</td></tr>';
-    });
-    html += '</tbody></table>';
-    return html;
-  }
-
-  function renderPlacementSection(matchId, oppName) {
-    var p = PLACEMENT_DATA[matchId];
-    if (!p) return "";
-    var html = '<h3 style="margin:24px 0 8px">Serve & return placement</h3>';
-    html += '<div class="heatmap-grid serve-row">';
-    html += '<div class="card"><div class="card-header">Dylan — where he serves</div><div class="card-body">';
-    html += renderPlacementCourt("Dylan serve placement", "% of serves to each zone (totals 100%)", p.serveWinRate, "usage");
-    html += renderPlacementTable(p.serveWinRate, "usage");
-    html += '</div></div>';
-    html += '<div class="card"><div class="card-header">' + oppName + ' — where he serves</div><div class="card-body">';
-    html += renderPlacementCourt("Opponent serve placement", "% of serves to each zone (totals 100%)", p.returnVsServe, "oppUsage");
-    html += renderPlacementTable(p.returnVsServe, "oppUsage");
-    html += '</div></div></div>';
-    html += '<div class="grid-2" style="margin-top:12px">';
-    html += '<div class="card borderless"><div class="card-header">Serve placement takeaways</div><div class="card-body"><ul class="notes-list">';
-    p.serveInsights.forEach(function (n) { html += "<li>" + n + "</li>"; });
-    html += '</ul></div></div>';
-    html += '<div class="card borderless"><div class="card-header">Return vs serve takeaways</div><div class="card-body"><ul class="notes-list">';
-    p.returnInsights.forEach(function (n) { html += "<li>" + n + "</li>"; });
-    html += '</ul></div></div></div>';
-    return html;
-  }
-
-  function usageBar(label, dylan, opp, dColor, oColor) {
-    return '<div class="usage-bar"><div class="usage-bar-head"><span>Dylan</span><span>' + dylan + '% vs ' + opp + '%</span></div>' +
-      '<div class="usage-track"><div class="usage-seg ' + dColor + '" style="width:' + dylan + '%"></div><div class="usage-seg ' + oColor + '" style="width:' + opp + '%"></div></div>' +
-      '<div class="meta" style="margin-top:2px">' + label + '</div></div>';
-  }
-
-  function statRow(label, dylanVal, oppVal, dylanCompare) {
-    var html = '<tr class="stat-row"><td>' + label + '</td><td>' + dylanVal;
-    if (dylanCompare) html += dylanCompare;
-    html += '</td><td>' + (oppVal || "—") + '</td></tr>';
-    return html;
-  }
-
-  function renderMatchTabs() {
-    document.getElementById("match-tabs").innerHTML = MATCHES.map(function (m) {
-      var active = m.id === selectedMatchId ? " active" : "";
-      var pillCls = m.result === "W" ? "win" : "loss";
-      return '<button type="button" class="match-tab' + active + '" data-id="' + m.id + '">' +
-        '<span class="tab-round">' + m.round + '</span>' +
-        '<span class="tab-opp">' + m.opponent.split(" (")[0] + '</span>' +
-        '<span class="tab-score"><span class="pill ' + pillCls + '">' + m.score + '</span></span>' +
-        '</button>';
-    }).join("");
-    document.getElementById("match-tabs").querySelectorAll(".match-tab").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        selectedMatchId = btn.getAttribute("data-id");
-        renderMatchTabs();
-        renderMatchPanel(selectedMatchId);
-      });
-    });
-  }
-
-  function renderMatchPanel(matchId) {
-    var match = MATCHES.find(function (m) { return m.id === matchId; }) || MATCHES[0];
-    var data = HEATMAP_DATA[matchId];
-    var isWin = match.result === "W";
-    var s = match.stats;
-    var oppName = match.opponent.split(" (")[0];
-    var html = "";
-
-    html += '<div class="card"><div class="card-header"><span>' + match.round + ' — ' + match.opponent + '</span><span class="meta">' + match.date + '</span></div><div class="card-body">';
-    html += '<div class="match-meta-row"><span class="pill ' + (isWin ? "win" : "loss") + '">' + (isWin ? "Win" : "Loss") + '</span><span class="pill neutral">' + match.score + '</span>';
-    if (match.opponentRank) html += '<span class="meta">Opponent ranked #' + match.opponentRank + '</span>';
-    html += '</div>';
-
-    html += '<div class="set-grid">';
-    match.setScores.forEach(function (set) {
-      var tone = set.dietrich > set.opponent ? "success" : "";
-      html += statBox("Set " + set.set, set.dietrich + "-" + set.opponent, tone);
-    });
-    html += '</div>';
-
-    html += '<div class="card" style="margin-bottom:16px"><div class="card-header">Serve & return snapshot <span class="meta">vs tournament avg</span></div><div class="card-body">';
-    html += usageBar("1st serve in play (%)", s.firstServePct, s.oppFirstServePct, "blue", "orange");
-    html += compareHtml(s.firstServePct, AVGS.firstServePct, true, "%");
-    html += usageBar("Points won on 1st serve (%)", s.firstServeWonPct, s.oppFirstServeWonPct, "green", "red");
-    html += compareHtml(s.firstServeWonPct, AVGS.firstServeWonPct, true, "%");
-    html += usageBar("Points won on 2nd serve (%)", s.secondServeWonPct, s.oppSecondServeWonPct, "green", "red");
-    html += compareHtml(s.secondServeWonPct, AVGS.secondServeWonPct, true, "%");
-    html += '</div></div>';
-
-    html += '<table><thead><tr><th>Stat</th><th>Dylan</th><th>Opponent</th></tr></thead><tbody>';
-    html += statRow("Aces", String(s.aces), String(s.oppAces), compareHtml(s.aces, AVGS.aces, true, ""));
-    html += statRow("Double faults", String(s.doubleFaults), String(s.oppDoubleFaults), compareHtml(s.doubleFaults, AVGS.doubleFaults, false, ""));
-    html += statRow("Break points", s.breakPointsWon, s.oppBreakPointsWon, "");
-    html += statRow("Return pts won", pct(s.returnPtsWonPct), pct(s.oppReturnPtsWonPct), compareHtml(s.returnPtsWonPct, AVGS.returnPtsWonPct, true, "%"));
-    html += statRow("1st serve %", pct(s.firstServePct), pct(s.oppFirstServePct), compareHtml(s.firstServePct, AVGS.firstServePct, true, "%"));
-    html += statRow("1st serve pts won", pct(s.firstServeWonPct), pct(s.oppFirstServeWonPct), compareHtml(s.firstServeWonPct, AVGS.firstServeWonPct, true, "%"));
-    html += statRow("2nd serve pts won", pct(s.secondServeWonPct), pct(s.oppSecondServeWonPct), compareHtml(s.secondServeWonPct, AVGS.secondServeWonPct, true, "%"));
-    html += '</tbody></table>';
-    html += '</div></div>';
-
-    html += renderPlacementSection(matchId, oppName);
-
-    html += '<div class="heatmap-grid serve-row" style="margin-top:16px">';
-    html += '<div class="card"><div class="card-header">Dylan — serve placement</div><div class="card-body">' +
-      renderCourtHeatmap("First & second serve landing zones", "Share of serves to each zone", data.serveLanding, "serve", 220, "Dylan") +
-      '</div></div>';
-    html += '<div class="card"><div class="card-header">' + oppName + ' — serve placement</div><div class="card-body">' +
-      renderCourtHeatmap("Opponent first & second serve zones", "Share of " + oppName + "'s serves to each zone", data.oppServeLanding, "serve", 220, oppName) +
-      '</div></div>';
-    html += '</div>';
-
-    if (data.oppServeNotes && data.oppServeNotes.length) {
-      html += '<div class="card borderless" style="margin-top:12px"><div class="card-header">Opponent serve pattern notes</div><div class="card-body"><ul class="notes-list">';
-      data.oppServeNotes.forEach(function (n) { html += "<li>" + n + "</li>"; });
-      html += '</ul></div></div>';
-    }
-
-    html += '<div class="heatmap-grid" style="margin-top:16px">';
-    html += '<div class="card"><div class="card-header">Return position & direction</div><div class="card-body">' +
-      renderCourtHeatmap("Return contact position", "Share of returns from each position", data.returnContact, "return-contact", 180) +
-      renderCourtHeatmap("Return landing zones", "Share of returns landing in each zone", data.returnLanding, "return-landing", 180) +
-      '</div></div>';
-    html += '<div class="card"><div class="card-header">Groundstroke placement</div><div class="card-body">' +
-      renderCourtHeatmap("Forehand landing zones", "Share of forehands to each zone", data.forehandLanding, "groundstroke") +
-      renderCourtHeatmap("Backhand landing zones", "Share of backhands to each zone", data.backhandLanding, "groundstroke") +
-      '</div></div>';
-    html += '</div>';
-
-    html += '<div class="card borderless" style="margin-top:12px"><div class="card-header">Pattern notes for this match</div><div class="card-body"><ul class="notes-list">';
-    data.notes.forEach(function (n) { html += "<li>" + n + "</li>"; });
-    html += '</ul></div></div>';
-
-    html += '<div class="card" style="margin-top:16px"><div class="card-body">';
-    html += '<div class="callout info">' + match.tacticalProfile + '</div>';
-    html += '<h3>Coaching notes</h3><ol class="notes-list">';
-    match.coachingNotes.forEach(function (n) { html += "<li>" + n + "</li>"; });
-    html += '</ol><h3>Key moments</h3><ul class="notes-list">';
-    match.keyMoments.forEach(function (m) { html += "<li>" + m + "</li>"; });
-    html += '</ul>';
-    if (match.replayUrl) {
-      html += '<p class="meta" style="margin-top:14px">Full replay: <a href="' + match.replayUrl + '" target="_blank" rel="noopener">Watch match</a></p>';
-    }
-    html += '</div></div>';
-
-    document.getElementById("match-panel").innerHTML = html;
-  }
-
-  renderSummaryStats();
-  renderTable("bracket-table", ["Round", "Opponent", "Score", "Result"],
-    MATCHES.map(function (m) {
-      return [m.round, m.opponent, m.score, '<span class="pill ' + (m.result === "W" ? "win" : "loss") + '">' + m.result + '</span>'];
-    }),
-    MATCHES.map(function (m) { return m.result === "W" ? "row-win" : "row-loss"; })
-  );
-  renderBarChart("chart-1st-serve", 40, 95);
-  renderBarChart("chart-2nd-serve", 20, 80);
-  renderMatchTabs();
-  renderMatchPanel("r1");
-})();
-
-</script>
 </body>
 </html>
