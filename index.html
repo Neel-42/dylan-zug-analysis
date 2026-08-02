@@ -9,10 +9,13 @@
 :root {
   --bg: #0f1115;
   --surface: #171a21;
+  --surface-2: #1e2330;
   --text: #e8eaed;
   --muted: #9aa3b2;
   --success: #3ecf8e;
   --accent: #4d8df0;
+  --danger: #f07178;
+  --orange: #e8956a;
   --border: #2a3140;
   --radius: 12px;
 }
@@ -24,7 +27,9 @@ body {
   color: var(--text);
   line-height: 1.5;
 }
-.page { max-width: 640px; margin: 0 auto; padding: 32px 20px 48px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.page { max-width: 900px; margin: 0 auto; padding: 32px 20px 48px; }
 .eyebrow {
   margin: 0 0 6px;
   font-size: 0.75rem;
@@ -33,6 +38,7 @@ body {
   color: var(--muted);
 }
 h1 { margin: 0 0 8px; font-size: 1.6rem; font-weight: 650; }
+h2.section-title { margin: 32px 0 14px; font-size: 1.15rem; font-weight: 650; }
 .lead { margin: 0 0 28px; color: var(--muted); font-size: 0.95rem; }
 .answer-card {
   background: var(--surface);
@@ -66,13 +72,100 @@ h1 { margin: 0 0 8px; font-size: 1.6rem; font-weight: 650; }
   border-radius: 5px;
   overflow: hidden;
 }
-.side-bar .fill {
-  height: 100%;
-  border-radius: 5px;
-  background: #4a5568;
-}
+.side-bar .fill { height: 100%; border-radius: 5px; background: #4a5568; }
 .side-bar.winner .fill { background: var(--success); }
 .side-bar.winner .label { color: var(--text); font-weight: 600; }
+.match-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 700px) { .match-grid { grid-template-columns: 1fr; } }
+.match-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+}
+.match-card.loss { border-color: rgba(240,113,120,0.35); }
+.match-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.match-head h3 { margin: 0; font-size: 1rem; font-weight: 650; line-height: 1.25; }
+.match-meta { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+.pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.pill.win { background: rgba(62,207,142,0.15); color: var(--success); }
+.pill.loss { background: rgba(240,113,120,0.15); color: var(--danger); }
+.pie-wrap { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 8px 0 14px; }
+.pie-svg { width: 120px; height: 120px; flex-shrink: 0; }
+.pie-legend { font-size: 0.82rem; color: var(--muted); }
+.pie-legend div { margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.pie-caption { font-size: 0.78rem; color: var(--muted); text-align: center; margin: -6px 0 12px; }
+.video-shell {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #000;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 10px;
+}
+.video-shell iframe,
+.video-shell .video-link {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.video-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  background:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.65)),
+    url("https://media.prod.tennis.com/v1/tcf/images/players/9f8d0cf0-9a11-4948-9b9c-b7c14773cd75/20260724_193254_02befafd.png") center 20% / cover no-repeat;
+  color: #fff;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+.video-link:hover { text-decoration: none; opacity: 0.95; }
+.play-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(77,141,240,0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  padding-left: 4px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+}
+.video-link span:last-child { font-size: 0.82rem; color: #e8eaed; max-width: 220px; line-height: 1.35; }
+.sample-point {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.sample-point strong { color: var(--text); font-weight: 600; }
 .footer { margin-top: 28px; font-size: 0.8rem; color: var(--muted); text-align: center; }
 </style>
 </head>
@@ -80,7 +173,7 @@ h1 { margin: 0 0 8px; font-size: 1.6rem; font-weight: 650; }
 <div class="page">
   <p class="eyebrow">UVA Men's Tennis · Zug Open 2026</p>
   <h1>Dylan Dietrich — Deuce vs Ad</h1>
-  <p class="lead">Four main-draw matches (R1 through SF). One question each: where does he serve best, and where does he return best?</p>
+  <p class="lead">Four main-draw matches. Where does he serve best, where does he return best, and how did points break down each round?</p>
 
   <div class="answer-card">
     <h2>Serving</h2>
@@ -114,7 +207,123 @@ h1 { margin: 0 0 8px; font-size: 1.6rem; font-weight: 650; }
     </div>
   </div>
 
+  <h2 class="section-title">Points won by match</h2>
+  <p class="lead" style="margin-top:-8px;margin-bottom:16px">Each pie shows Dylan's share of total points won vs his opponent. Sample point video below each chart.</p>
+  <div class="match-grid" id="match-grid"></div>
+
   <p class="footer">Dylan Dietrich · Zug Open 2026 · Main draw (4 matches)</p>
 </div>
+
+<script type="application/json" id="coach-matches">[
+  {
+    "id": "r1",
+    "round": "Round 1",
+    "opponent": "Tomás Barrios Vera",
+    "score": "6-4, 4-6, 6-1",
+    "result": "W",
+    "dylanPts": 57,
+    "oppPts": 43,
+    "replayUrl": "https://www.tennischannel.com/en-us/video/dietrich-dylan-barrios-vera-tomas/2199356",
+    "replayLabel": "Tennis Channel replay",
+    "sampleTitle": "Deuce-wide ace",
+    "samplePoint": "Set 1, 5-4 — Dylan hits a deuce-wide first serve for a clean winner at 15-40 to break and take the set. Best example of his deuce-side damage serve."
+  },
+  {
+    "id": "r2",
+    "round": "Round 2",
+    "opponent": "Max Alcalá Gurri",
+    "score": "6-3, 6-3",
+    "result": "W",
+    "dylanPts": 58,
+    "oppPts": 42,
+    "replayUrl": "https://www.tennischannel.com/en-us/video/alcala-gurri-max-dietrich-dylan/2201598",
+    "replayLabel": "Tennis Channel replay",
+    "sampleTitle": "Deuce-side hold under pressure",
+    "samplePoint": "Set 2, 3-3 — Long deuce game on the deuce side; Dylan holds with a wide first serve plus forehand, then breaks next game to go up 5-3."
+  },
+  {
+    "id": "qf",
+    "round": "Quarterfinal",
+    "opponent": "Harold Mayot",
+    "score": "6-3, 6-3",
+    "result": "W",
+    "dylanPts": 58,
+    "oppPts": 42,
+    "replayUrl": "https://www.primevideo.com/detail/0MGUJ21NMB5CMRQI8XTL45OKQF",
+    "replayLabel": "Prime Video replay",
+    "sampleTitle": "Deuce-wide serve + forehand",
+    "samplePoint": "Set 1, 4-3 — Break point: deuce-wide first serve pulls Mayot off court, Dylan steps in with an inside-out forehand winner. Peak deuce-side pattern."
+  },
+  {
+    "id": "sf",
+    "round": "Semifinal",
+    "opponent": "Thiago Seyboth Wild",
+    "score": "4-6, 3-6",
+    "result": "L",
+    "dylanPts": 43,
+    "oppPts": 57,
+    "replayUrl": "https://www.tennischannel.com/en-us/video/seyboth-wild-thiago-dietrich-dylan/2202652",
+    "replayLabel": "Tennis Channel replay",
+    "sampleTitle": "Missed break chances",
+    "samplePoint": "Set 1, 3-3 — Dylan gets 15-40 and 30-40 on return but can't convert vs Seyboth Wild's kick serve to the ad body. Momentum swings; Wild wins 8 of the last 10 games."
+  }
+]</script>
+<script>
+(function () {
+  "use strict";
+
+  var MATCHES = JSON.parse(document.getElementById("coach-matches").textContent);
+
+  function pieSvg(dylanPct, isLoss) {
+    var r = 54;
+    var c = 2 * Math.PI * r;
+    var dylanLen = (dylanPct / 100) * c;
+    var oppLen = c - dylanLen;
+    var dylanColor = isLoss ? "#e8956a" : "#3ecf8e";
+    var oppColor = isLoss ? "#f07178" : "#4a5568";
+    var rot = -90;
+    return (
+      '<svg class="pie-svg" viewBox="0 0 120 120" aria-hidden="true">' +
+      '<circle cx="60" cy="60" r="' + r + '" fill="none" stroke="' + oppColor + '" stroke-width="12" />' +
+      '<circle cx="60" cy="60" r="' + r + '" fill="none" stroke="' + dylanColor + '" stroke-width="12" ' +
+      'stroke-dasharray="' + dylanLen + ' ' + oppLen + '" transform="rotate(' + rot + ' 60 60)" stroke-linecap="butt" />' +
+      '<text x="60" y="56" text-anchor="middle" fill="#e8eaed" font-size="17" font-weight="700">' + dylanPct + '%</text>' +
+      '<text x="60" y="72" text-anchor="middle" fill="#9aa3b2" font-size="9">Dylan</text>' +
+      '</svg>'
+    );
+  }
+
+  function renderMatchCard(m) {
+    var isLoss = m.result === "L";
+    var dylanColor = isLoss ? "var(--orange)" : "var(--success)";
+    var oppColor = isLoss ? "var(--danger)" : "var(--muted)";
+    return (
+      '<div class="match-card' + (isLoss ? " loss" : "") + '">' +
+        '<div class="match-head">' +
+          '<div><h3>' + m.round + '</h3><div class="match-meta">vs ' + m.opponent + ' · ' + m.score + '</div></div>' +
+          '<span class="pill ' + (isLoss ? "loss" : "win") + '">' + (isLoss ? "Loss" : "Win") + '</span>' +
+        '</div>' +
+        '<div class="pie-wrap">' +
+          pieSvg(m.dylanPts, isLoss) +
+          '<div class="pie-legend">' +
+            '<div><span class="dot" style="background:' + dylanColor + '"></span>Dylan ' + m.dylanPts + '%</div>' +
+            '<div><span class="dot" style="background:' + oppColor + '"></span>Opponent ' + m.oppPts + '%</div>' +
+          '</div>' +
+        '</div>' +
+        '<p class="pie-caption">Total points won in match</p>' +
+        '<div class="video-shell">' +
+          '<a class="video-link" href="' + m.replayUrl + '" target="_blank" rel="noopener">' +
+            '<span class="play-btn" aria-hidden="true">▶</span>' +
+            '<span>Watch sample point — ' + m.replayLabel + '</span>' +
+          '</a>' +
+        '</div>' +
+        '<p class="sample-point"><strong>' + m.sampleTitle + ':</strong> ' + m.samplePoint + '</p>' +
+      '</div>'
+    );
+  }
+
+  document.getElementById("match-grid").innerHTML = MATCHES.map(renderMatchCard).join("");
+})();
+</script>
 </body>
 </html>
