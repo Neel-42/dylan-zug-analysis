@@ -23,12 +23,15 @@ h1{margin:0 0 8px;font-size:1.6rem;font-weight:650}
 .verdict{margin:0 0 10px;font-size:1.75rem;font-weight:700;color:var(--success)}
 .verdict.tie{color:var(--accent)}
 .answer-card p{margin:0;color:var(--muted);font-size:.95rem}
-.side-pie-compare{display:flex;gap:20px;justify-content:center;margin-top:16px}
-.side-pie-col{flex:1;max-width:160px;text-align:center}
-.side-pie-col.winner .side-pie-label{color:var(--text);font-weight:600}
-.side-pie-label{font-size:.78rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em}
-.side-pie-col .pie-svg{width:120px;height:120px;margin:0 auto;display:block}
-.side-pie-legend{font-size:.78rem;color:var(--muted);margin-top:8px;display:flex;align-items:center;justify-content:center;gap:6px}
+.avg-pie-wrap{display:flex;align-items:center;justify-content:center;gap:20px;margin:16px 0 4px;flex-wrap:wrap}
+.avg-pie-caption{font-size:.78rem;color:var(--muted);text-align:center;margin:0 0 8px}
+.total-bar-compare{margin-top:16px;display:flex;flex-direction:column;gap:14px}
+.total-bar-row{display:flex;align-items:center;gap:12px}
+.total-bar-label{width:72px;flex-shrink:0;font-size:.78rem;color:var(--muted);text-align:right;text-transform:uppercase;letter-spacing:.03em}
+.total-bar-track{flex:1;height:36px;background:#252a36;border-radius:6px;overflow:hidden}
+.total-bar-fill{height:100%;min-width:48px;border-radius:6px;display:flex;align-items:center;justify-content:center;padding:0 12px}
+.total-bar-num{font-size:1rem;font-weight:700;color:#0f1115;white-space:nowrap}
+.total-bar-note{margin:10px 0 0;font-size:.76rem;color:var(--muted)}
 .callout{padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-size:.88rem;color:var(--muted);margin-bottom:20px}
 h2.section-title{margin:28px 0 12px;font-size:1.15rem;font-weight:650}
 .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -77,17 +80,31 @@ h2.section-title{margin:28px 0 12px;font-size:1.15rem;font-weight:650}
   <div class="callout"><strong>Surface note:</strong> Previous Zug Open analysis was clay. Dylan's NCAA season and Boar's Head duals are hard court — this page uses hard-court data only.</div>
 
   <div class="answer-card">
+    <h2>Average points won — all 21 matches</h2>
+    <p class="avg-pie-caption">Mean across the full hard-court dataset (21 singles matches)</p>
+    <div class="avg-pie-wrap">
+      <svg class="pie-svg" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" fill="none" stroke="#4a5568" stroke-width="12"/><circle cx="60" cy="60" r="54" fill="none" stroke="#3ecf8e" stroke-width="12" stroke-dasharray="183.2 156.1" transform="rotate(-90 60 60)"/><text x="60" y="56" text-anchor="middle" fill="#e8eaed" font-size="17" font-weight="700">54%</text><text x="60" y="72" text-anchor="middle" fill="#9aa3b2" font-size="9">Dylan</text></svg>
+      <div class="pie-legend">
+        <div><span class="dot" style="background:var(--success)"></span>Dylan 54% avg</div>
+        <div><span class="dot" style="background:var(--muted)"></span>Opponent 46% avg</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
     <h2>Serving (deuce vs ad)</h2>
     <p class="verdict">Ad side</p>
-    <p>On hard court, the one fully charted match (2024 Charlottesville vs Svajda) shows <strong>81.8%</strong> serve points won on the ad side vs <strong>69.2%</strong> on deuce. He still targets deuce wide often (72.7% of wide serves), but ad-side serving has been more effective on hard.</p>
-    <div class="side-pie-compare"><div class="side-pie-col"><div class="side-pie-label">Deuce side</div><svg class="pie-svg side-pie" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" fill="none" stroke="#4a5568" stroke-width="12"/><circle cx="60" cy="60" r="54" fill="none" stroke="#4d8df0" stroke-width="12" stroke-dasharray="234.1 105.2" transform="rotate(-90 60 60)"/><text x="60" y="56" text-anchor="middle" fill="#e8eaed" font-size="17" font-weight="700">69%</text><text x="60" y="72" text-anchor="middle" fill="#9aa3b2" font-size="9">pts won</text></svg><div class="side-pie-legend"><span class="dot" style="background:var(--accent)"></span>Won 69%</div></div><div class="side-pie-col winner"><div class="side-pie-label">Ad side</div><svg class="pie-svg side-pie" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" fill="none" stroke="#4a5568" stroke-width="12"/><circle cx="60" cy="60" r="54" fill="none" stroke="#3ecf8e" stroke-width="12" stroke-dasharray="278.2 61.1" transform="rotate(-90 60 60)"/><text x="60" y="56" text-anchor="middle" fill="#e8eaed" font-size="17" font-weight="700">82%</text><text x="60" y="72" text-anchor="middle" fill="#9aa3b2" font-size="9">pts won</text></svg><div class="side-pie-legend"><span class="dot" style="background:var(--success)"></span>Won 82%</div></div></div>
+    <p>Estimated serve points won across all 21 matches — <strong>82.0%</strong> avg on ad vs <strong>69.7%</strong> avg on deuce. Bars show <strong>total points won</strong> on each side (not full match replays).</p>
+    <div class="total-bar-compare"><div class="total-bar-row"><div class="total-bar-label">Deuce</div><div class="total-bar-track"><div class="total-bar-fill" style="width:84%;background:var(--accent)"><span class="total-bar-num">371</span></div></div></div><div class="total-bar-row"><div class="total-bar-label">Ad</div><div class="total-bar-track"><div class="total-bar-fill" style="width:100%;background:var(--success)"><span class="total-bar-num">441</span></div></div></div></div>
+    <p class="total-bar-note">Totals estimated from match scores + charted deuce/ad win rates (Svajda 2024 where side splits unavailable).</p>
   </div>
 
   <div class="answer-card">
     <h2>Returning (deuce vs ad)</h2>
     <p class="verdict tie">Ad side (slight edge)</p>
-    <p>Same charted hard-court match: <strong>44.8%</strong> return points won on ad vs <strong>41.9%</strong> on deuce. Difference is small — neither side is a clear weakness on hard.</p>
-    <div class="side-pie-compare"><div class="side-pie-col"><div class="side-pie-label">Deuce side</div><svg class="pie-svg side-pie" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" fill="none" stroke="#4a5568" stroke-width="12"/><circle cx="60" cy="60" r="54" fill="none" stroke="#4d8df0" stroke-width="12" stroke-dasharray="142.5 196.8" transform="rotate(-90 60 60)"/><text x="60" y="56" text-anchor="middle" fill="#e8eaed" font-size="17" font-weight="700">42%</text><text x="60" y="72" text-anchor="middle" fill="#9aa3b2" font-size="9">pts won</text></svg><div class="side-pie-legend"><span class="dot" style="background:var(--accent)"></span>Won 42%</div></div><div class="side-pie-col winner"><div class="side-pie-label">Ad side</div><svg class="pie-svg side-pie" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" fill="none" stroke="#4a5568" stroke-width="12"/><circle cx="60" cy="60" r="54" fill="none" stroke="#3ecf8e" stroke-width="12" stroke-dasharray="152.7 186.6" transform="rotate(-90 60 60)"/><text x="60" y="56" text-anchor="middle" fill="#e8eaed" font-size="17" font-weight="700">45%</text><text x="60" y="72" text-anchor="middle" fill="#9aa3b2" font-size="9">pts won</text></svg><div class="side-pie-legend"><span class="dot" style="background:var(--success)"></span>Won 45%</div></div></div>
+    <p>Same 21-match aggregate: <strong>44.8%</strong> avg return points won on ad vs <strong>41.8%</strong> on deuce.</p>
+    <div class="total-bar-compare"><div class="total-bar-row"><div class="total-bar-label">Deuce</div><div class="total-bar-track"><div class="total-bar-fill" style="width:92%;background:var(--accent)"><span class="total-bar-num">223</span></div></div></div><div class="total-bar-row"><div class="total-bar-label">Ad</div><div class="total-bar-track"><div class="total-bar-fill" style="width:100%;background:var(--success)"><span class="total-bar-num">243</span></div></div></div></div>
+    <p class="total-bar-note">Bar labels = total estimated return points won on that side across the dataset.</p>
   </div>
 
   <h2 class="section-title">Featured matches — points won</h2>
